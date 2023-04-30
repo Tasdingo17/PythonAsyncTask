@@ -1,7 +1,7 @@
+import argparse
 import asyncio
 import cowsay
 
-from time import sleep
 
 clients: dict[str, asyncio.Queue] = {}
 logged_clients: dict[str, str] = {}  # {ip: cow}
@@ -94,7 +94,7 @@ async def chat(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
                         await asyncio.create_task(process_login(me, cow))
                     case ['logout']:
                         await asyncio.create_task(process_logout(me))
-                    case ['say', dst, msg]:
+                    case ['say', dst, *msg]:
                         await asyncio.create_task(process_say(me, dst, " ".join(msg)))
                     case ['yield', *msg]:
                         await asyncio.create_task(process_yield(me, " ".join(msg)))
@@ -124,8 +124,22 @@ async def chat(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
     await writer.wait_closed()
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Run server.",
+                                     usage="python3 srv.py [IP] [PORT]")
+    
+    parser.add_argument("ip", type=str, default="0.0.0.0", nargs='?',
+                        help="Server IP, default is 0.0.0.0")
+    parser.add_argument("port", type=int, default=1337, nargs='?',
+                        help="Server port, default is 1337")
+    
+    args = parser.parse_args()
+    return args
+
+
 async def main():
-    server = await asyncio.start_server(chat, '0.0.0.0', 1337)
+    args = parse_args()
+    server = await asyncio.start_server(chat, args.ip, args.port)
     print("Started server!")
     async with server:
         await server.serve_forever()
