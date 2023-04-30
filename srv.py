@@ -5,7 +5,7 @@ from time import sleep
 
 clients: dict[str, asyncio.Queue] = {}
 logged_clients: dict[str, str] = {}  # {ip: cow}
-logged_cows: dict[str, str] = {}     # {ip: cow}
+logged_cows: dict[str, str] = {}     # {сow: ip}
 available_cows = set(cowsay.list_cows())
 
 

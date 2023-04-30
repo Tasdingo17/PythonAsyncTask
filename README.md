@@ -1,9 +1,9 @@
 ## Asynchronous client-server application
 
-Python >= 3.10.
+Python >= 3.10
 
-Practice task for asynchronous programming in python.
-Original task: bottom of http://uneex.ru/LecturesCMC/PythonDevelopment2023/05_DiffPatchNet
+Practice task for asynchronous programming in python.  
+Original task: bottom of http://uneex.ru/LecturesCMC/PythonDevelopment2023/05_DiffPatchNet  
 Idea: chat using cowsay
 
 Capabilities: asynchronous server/clients, clients can:
