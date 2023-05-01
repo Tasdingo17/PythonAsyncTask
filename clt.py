@@ -55,8 +55,8 @@ class ChatClt(cmd.Cmd):
     intro = 'Welcome to the chat. Please log in. Type help or ? to list commands.\n'
     prompt = ">>> "
 
-    def __init__(self, *args, communicator=None, **kwargs):
-        super().__init__(args, kwargs)
+    def __init__(self, *args, communicator: Communicator = None, **kwargs):
+        super().__init__(*args, **kwargs)
         self.communicator: Communicator = communicator
         print("Initialized client!")
 
